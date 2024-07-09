@@ -4,7 +4,7 @@ package java0709;
 /**
  * swap 예제 클래스
  */
-public class Swap {
+public class Quiz1 {
 
 	/**
 	 * @param x

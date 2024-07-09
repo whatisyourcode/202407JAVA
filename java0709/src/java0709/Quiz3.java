@@ -2,7 +2,7 @@ package java0709;
 
 import java.util.Scanner;
 
-public class BigValue {
+public class Quiz3 {
 
 	public static int getNumber(String msg, Scanner sc) {
 		System.out.print(msg);

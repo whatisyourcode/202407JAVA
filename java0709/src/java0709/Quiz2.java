@@ -3,7 +3,7 @@ package java0709;
 import java.util.Scanner;
 
 
-public class Apple {
+public class Quiz2 {
 	
 	public static int getCount(String msg, Scanner scanner) {
 		System.out.print(msg);

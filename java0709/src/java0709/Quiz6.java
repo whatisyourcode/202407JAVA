@@ -2,7 +2,7 @@ package java0709;
 
 import java.util.Scanner;
 
-public class parsePositiveInteger {
+public class Quiz6 {
 	public static int getPositiveNumber(int number) {
 		if(number > 0) {
 			return number;

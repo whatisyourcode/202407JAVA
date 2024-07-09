@@ -2,7 +2,7 @@ package java0709;
 
 import java.util.Scanner;
 
-public class MaxValue {
+public class Quiz4 {
 
 	public static int getNumber(String msg,Scanner sc) {
 		System.out.print(msg);
