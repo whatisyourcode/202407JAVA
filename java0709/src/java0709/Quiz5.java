@@ -3,7 +3,6 @@ package java0709;
 import java.util.Scanner;
 
 public class Quiz5 {
-	
 	public static int getScore(String msg,Scanner sc) {
 		System.out.print(msg);
 		String input = sc.nextLine(); 
