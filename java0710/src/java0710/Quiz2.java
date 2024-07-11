@@ -24,9 +24,9 @@ public class Quiz2 {
 			}else if(select == 3) {
 				System.out.println("잔고>"+balance);
 			}else {
+				run = false;
 				System.out.println();
 				System.out.println("프로그램 종료");
-				break;
 			}
 		}
 		
