@@ -15,7 +15,7 @@ public class Exam07_Project1 {
 		
 		// 2. 회원가입 변수
 		String name = "";
-		String IdNumber = "";
+		String ssn = "";
 		String tel = "";
 		
 		Scanner scanner = new Scanner(System.in);
@@ -51,7 +51,7 @@ public class Exam07_Project1 {
 				System.out.print("1. 이름: ");
 				name = scanner.nextLine();
 				System.out.print("2. 주민번호6자리: ");
-				IdNumber = scanner.nextLine();
+				ssn = scanner.nextLine();
 				System.out.print("3. 전화번호: ");
 				tel = scanner.nextLine();
 				System.out.print("4. ID: ");
@@ -61,7 +61,7 @@ public class Exam07_Project1 {
 				// 출력
 				System.out.println("[입력된 내용]");
 				System.out.println("1. 아이디: " + name);
-				System.out.println("2  주민번호 6자리: "+ IdNumber);
+				System.out.println("2  주민번호 6자리: "+ ssn);
 				System.out.println("3. 전화번호: "+ tel);
 				System.out.println("4. ID: "+ ID);
 				System.out.println("5. PW: "+ PW);
