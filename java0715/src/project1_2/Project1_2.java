@@ -1,39 +1,38 @@
-package project1;
+package project1_2;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
-public class Project1 {
+public class Project1_2 {
 
 	public static void main(String[] args) {
-		Member[] list = new Member[10];
-		// 총 회원수 10명으로 제한
-		int memCnt = 0 ; // 회원수 <- 파일을 읽어왔을 때 몇명인지 파악하기 위한 변수
-		// 파일 데이터 가져오기
+//		Member[] list = null;
+		List<Member> list = null;
+	
 		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
-				ObjectInputStream ois = new ObjectInputStream(fis)){
-			Member[] list2 = (Member[]) ois.readObject(); // 외부 파일 멤버 데이터를 list2 배열에 저장.
-			System.arraycopy(list2, 0, list, 0, list2.length); // list2 배열을 list 배열에 복사.
-			System.out.println("파일에서 객체를 가져왔습니다.");
+	             ObjectInputStream ois = new ObjectInputStream(fis)) {
+			Member[] list2 = (Member[]) ois.readObject();
+			list = new ArrayList<>(Arrays.asList(list2));
 			
-		}catch (IOException | ClassNotFoundException e) {
+			System.out.println("파일에서 객체를 가져왔습니다.");
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		// 파일의 멤버 갯수 파악 및 멤버 출력
 		for (Member member : list) {
-			if (member != null) {
-				System.out.println(member);
-				++memCnt;
-			}
+			System.out.println(member);
 		}
-		System.out.println("총 회원수 : "+ memCnt);
+
 		
-		Member member = null; // 로그인된 현재 사용자
+		System.out.println("총회원수:"+list.size());
+		
+		Member member = null; // 로그인 된 현재 사용자
 		Scanner scanner = new Scanner(System.in);
 		boolean run = true;
 		while (run) {
@@ -46,33 +45,20 @@ public class Project1 {
 			case 1:
 				// 로그인 처리
 				System.out.println("로그인 처리");
+				
 				System.out.print("아이디:");  //출력문
 				String name = scanner.nextLine(); // name 변수의 값 입력
 				System.out.print("패스워드:");
 				String strPassword = scanner.nextLine();//패스워드입력
-				int find = -1; // 찾기 전 또는 못 찾았을 때
 				
-				for(int i=0; i<list.length; i++) {
-					if(list[i].name.equals(name) && list[i].ssn.equals(strPassword)) {
-						find = i;
-						member = list[i];
-						break;
+				for(Member member2 : list) {
+					if(member2.getName().contains(name) && member2.getSsn().contains(strPassword)) {
+						member = member2;
+						System.out.println("로그인 성공");
 					}
 				}
-				System.out.println("인덱스 : "+find);
-				System.out.println(member);
-	
-//				if (name.equals(member.name)) {
-//					if (strPassword.equals(member.ssn)) {
-//						System.out.println("로그인 성공");
-//					} else {
-//						System.out.println("로그인 실패:패스워드가 틀림");
-//					}
-//				} else {
-//					System.out.println("로그인 실패:아이디 존재하지 않음");
-//				}
 				break;
-				
+		
 			case 2:
 				// 회원 가입
 				System.out.println("회원 가입");
@@ -89,9 +75,10 @@ public class Project1 {
 				System.out.println("1. 이름: " + name2);
 				System.out.println("2. 주민번호 앞 6자리: " + ssn); 
 				System.out.println("3. 전화번호: " + tel);
-				// 객체 생성 , list의 다음 위치를 가르키기 위해 memCnt에 증감연산자 ++를 추가.
-				list[memCnt++]= new Member(name2, ssn, tel);
+				// 객체 생성
+				list.add(new Member(name2,ssn,tel));
 				break;
+				
 			case 3:
 				// 예금 출금
 				System.out.println("예금 출금");
@@ -106,15 +93,15 @@ public class Project1 {
 					switch (menuNum2) {
 					case 1:
 						System.out.print("예금액> ");
-						member.balance += Integer.parseInt(scanner.nextLine());
+						member.deposit(Integer.parseInt(scanner.nextLine()));
 						break;
 					case 2:
 						System.out.print("출금액> ");
-						member.balance -= Integer.parseInt(scanner.nextLine());
+						member.withdraw(Integer.parseInt(scanner.nextLine()));
 						break;
 					case 3:
 						System.out.print("잔고> ");
-						System.out.println(member.balance);
+						System.out.println(member.getBalance());
 						break;
 					case 4:
 						run2 = false;
@@ -125,14 +112,14 @@ public class Project1 {
 				System.out.println("예금/출금 프로그램 종료");
 				break;
 			case 4:
-				// 업데이트 된 멤버 데이터 외부 파일에 저장.
-				try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat"); 			
-						ObjectOutputStream oos = new ObjectOutputStream(fos)){
-
-					oos.writeObject(list); 
-					System.out.println("객체를 파일에 저장했습니다.");
+				Member[] list2 = list.toArray(new Member[list.size()]);
+				try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
+			             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+					 oos.writeObject(list2);
+			         System.out.println("객체를 파일에 저장했습니다.");
 					
-				}catch (IOException e) {
+					
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				run = false;
