@@ -1,12 +1,22 @@
-package java0716;
+package project2Swing;
 
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+
 
 public class MyFrame extends JFrame {
 	JLabel lb1 = new JLabel("아이디"); 
@@ -20,10 +30,28 @@ public class MyFrame extends JFrame {
 	JButton jb3 = new JButton("예금");
 	JButton jb4 = new JButton("출금");
 	JButton jb5 = new JButton("잔고");
-	
 	JTextArea ta = new JTextArea();
+	List<Member> list = null;
+	Member member = null; // 로그인 된 현재 사용자
 	
 	public MyFrame() {
+
+		
+		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
+	             ObjectInputStream ois = new ObjectInputStream(fis)) {
+			Member[] list2 = (Member[]) ois.readObject();
+			list = new ArrayList<>(Arrays.asList(list2));
+			System.out.println("파일에서 객체를 가져왔습니다.");
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		for (Member member : list) {
+			System.out.println(member);
+		}
+		System.out.println("총회원수:"+list.size());
+	
+		
+		
 		Container con = this.getContentPane();
 		con.setLayout(null);
 		// 아이디
@@ -62,7 +90,7 @@ public class MyFrame extends JFrame {
 		con.add(jb1);
 		jb1.setLocation(20,350);
 		jb1.setSize(100,30);
-		jb1.addActionListener(new MyListener());
+		jb1.addActionListener(new MyListener()); // 로그인 버튼 클릭시 로그인을 수행해야함.ㅣ
 		
 		
 		
@@ -90,6 +118,25 @@ public class MyFrame extends JFrame {
 		this.setLocation(700, 300); // 가로 , 세로
 		this.setSize(555,500); // 창 사이즈 설정 메서드
 		this.setVisible(true); // 창 보이게 하는 메서드
+	}
+	
+	class MyListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// 로그인 처리
+			String name = jt1.getText(); // name 변수의 값 입력
+			String strPassword = jt2.getText(); //패스워드입력
+			
+			for(Member member2 : list) {
+				if(member2.getName().contains(name) && member2.getSsn().contains(strPassword)) {
+					member = member2;
+					System.out.println("로그인 성공!");
+					break;
+				}
+			}
+			System.out.println(member);	
+		}
 	}
 	
 	public static void main(String[] args) {

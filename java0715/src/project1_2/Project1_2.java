@@ -20,7 +20,6 @@ public class Project1_2 {
 	             ObjectInputStream ois = new ObjectInputStream(fis)) {
 			Member[] list2 = (Member[]) ois.readObject();
 			list = new ArrayList<>(Arrays.asList(list2));
-			
 			System.out.println("파일에서 객체를 가져왔습니다.");
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
@@ -28,8 +27,6 @@ public class Project1_2 {
 		for (Member member : list) {
 			System.out.println(member);
 		}
-
-		
 		System.out.println("총회원수:"+list.size());
 		
 		Member member = null; // 로그인 된 현재 사용자
@@ -54,11 +51,13 @@ public class Project1_2 {
 				for(Member member2 : list) {
 					if(member2.getName().contains(name) && member2.getSsn().contains(strPassword)) {
 						member = member2;
-						System.out.println("로그인 성공");
+						System.out.println("로그인 완료");
+						break;
 					}
 				}
+				System.out.println(member);
 				break;
-		
+
 			case 2:
 				// 회원 가입
 				System.out.println("회원 가입");
