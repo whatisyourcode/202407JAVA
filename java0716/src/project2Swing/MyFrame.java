@@ -111,8 +111,7 @@ public class MyFrame extends JFrame {
 		jb5.setLocation(420,350);
 		jb5.setSize(100,30);
 
-		
-		
+	
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // 창을 닫을 때 JFrame 종료.
 		this.setTitle("안녕 스윙"); // title
 		this.setLocation(700, 300); // 가로 , 세로
