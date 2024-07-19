@@ -119,7 +119,7 @@ public class MyFrame extends JFrame {
 	}
 	
 	class MyListener implements ActionListener {
-
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// 로그인 처리
