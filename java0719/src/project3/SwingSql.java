@@ -110,21 +110,11 @@ public class SwingSql extends JFrame {
 			}else {
 				ta.setText("잘못 입력했습니다.");
 			}
-	
-		
-			
-		
 		}
-	
 	}
-
-	
-	
 	
 	public static void main(String[] args) {
 		new SwingSql();
 	}
 	
-	
-
 }
