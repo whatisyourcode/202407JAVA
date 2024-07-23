@@ -1,4 +1,4 @@
-package swingJdbc;
+package swing;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalTime;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ViewDept2 extends JFrame {
+public class ViewDept extends JFrame {
 	
 	JTextField tf = new JTextField(20);
 	JButton bt = new JButton("조회");
@@ -27,9 +27,9 @@ public class ViewDept2 extends JFrame {
 	Connection conn = null;
 	Statement stmt = null;
 	JFrame jf = null;
-	String title = "";
+	String title = "select 문장을 넣으세요"; 
 	
-	ViewDept2() {
+	ViewDept() {
 		jf = this;
 		String URL = "jdbc:mysql://localhost:3307/spring5fs";
 		try {
@@ -62,30 +62,29 @@ public class ViewDept2 extends JFrame {
 		bt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String input = tf.getText();	
 //				String sql = "select deptno, dname, loc from dept";
-				String input = tf.getText();			
-				String sql = String.format("select * from dept where loc like '%%%s%%'", input);
+//				String sql = String.format("select * from dept where loc like '%%%s%%'", input);
 				
-				
-				boolean flag = true;
-				try {
-					ResultSet rs = stmt.executeQuery(sql); 
-					ta.setText(""); // wow..
 		
-					while(rs.next()) {
-						flag = false;
-						int deptno = rs.getInt("deptno");
-						String dname = rs.getString("dname");
-						String loc = rs.getString("loc");
-						ta.append(String.format("%d %s %s\n", deptno, dname, loc));
-					}
-					
-					if(flag) { 
-						JOptionPane.showMessageDialog(jf, "해당자료가 없습니다.","정보",JOptionPane.ERROR_MESSAGE);
-					}
+				try {
+				      ResultSet rs = stmt.executeQuery(input);
+
+			            ResultSetMetaData rsmd = rs.getMetaData();
+			            int columnsNumber = rsmd.getColumnCount();
+			            ta.setText("");
+			            while (rs.next()) {
+			                for (int i = 1; i <= columnsNumber; i++) {
+			                    if (i > 1) ta.append(", ");
+			                    String columnValue = rs.getString(i);
+			                    ta.append(rsmd.getColumnName(i) + ": " + columnValue);
+			                }
+			                ta.append("\n");
+			            }
+
 					
 				}catch (SQLException e2) {
-					e2.printStackTrace();
+					JOptionPane.showMessageDialog(jf, "해당 자료가 없습니다.","정보",JOptionPane.INFORMATION_MESSAGE);
 				}	
 				
 			}
@@ -93,7 +92,7 @@ public class ViewDept2 extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new ViewDept2(); 
+		new ViewDept(); 
 	}
 
 

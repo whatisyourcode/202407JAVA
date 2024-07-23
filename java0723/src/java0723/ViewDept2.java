@@ -1,4 +1,4 @@
-package swingJdbc;
+package java0723;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -14,6 +14,7 @@ import java.time.LocalTime;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -30,6 +31,15 @@ public class ViewDept2 extends JFrame {
 	String title = "";
 	
 	ViewDept2() {
+//		JPanel jp1 = new JPanel();
+//		JLabel jl1 = new JLabel();
+//		jp1.add(jl1);
+		WinTime wt = new WinTime(); 
+		
+		Thread th = new Thread(wt);
+		th.start();
+	
+		
 		jf = this;
 		String URL = "jdbc:mysql://localhost:3307/spring5fs";
 		try {
@@ -52,7 +62,8 @@ public class ViewDept2 extends JFrame {
 		jp2.setLayout(new FlowLayout());
 		jp2.add(ta);
 		con.add(jp2,BorderLayout.CENTER);
-
+		
+		con.add(wt, BorderLayout.SOUTH);
 		
 		this.setTitle(title);
 		this.setBounds(1200, 200, 500, 260);
@@ -94,6 +105,43 @@ public class ViewDept2 extends JFrame {
 	
 	public static void main(String[] args) {
 		new ViewDept2(); 
+	}
+	
+//	class MyPanel extends JPanel{
+//		JLabel lb1;
+//		MyPanel(){
+//			lb1 = new JLabel("테스트");
+//			this.add(lb1);	
+//		}
+//	}
+//	
+	class WinTime extends JPanel implements Runnable {
+		JLabel lb1;
+
+		WinTime(){
+			lb1 = new JLabel();
+			this.add(lb1);
+		}
+
+		@Override
+		public void run() {
+			for(;;) {
+				LocalTime localTime = LocalTime.now();
+				String str = String.format("%d:%d:%d\n", localTime.getHour(), 
+						localTime.getMinute(),localTime.getSecond());
+				lb1.setText(str);
+//				ViewDept2.this.setTitle(str); // 외부 클래스 참조
+				
+				try {
+				Thread.sleep(1000);
+				} catch(InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+	
 	}
 
 
