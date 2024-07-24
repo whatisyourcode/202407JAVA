@@ -50,7 +50,6 @@ public class MyFrame extends JFrame{
 			// TODO Auto-generated method stub
 			while(true) {
 				String[] path = resultMove;
-				
 				for(int i=0; i<path.length; i++) {
 					lb1.setIcon(new ImageIcon("./src/"+ path[i]));
 					//System.out.println(i);
