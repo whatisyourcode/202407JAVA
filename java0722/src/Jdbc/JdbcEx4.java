@@ -10,15 +10,12 @@ public class JdbcEx4 {
 
 	public static void main(String[] args) {
 		String URL = "jdbc:mysql://localhost:3307/spring5fs";
-		Connection conn = null;
-		Statement stmt = null;
 		String sql = "select deptno, dname, loc from dept";
-
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(URL,"root","mysql");
+			Connection conn = DriverManager.getConnection(URL,"root","mysql");
 			System.out.println("접속 성공!");
-			stmt = conn.createStatement();
+			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql); 
 		
 			while(rs.next()) {
