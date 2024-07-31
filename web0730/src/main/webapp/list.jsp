@@ -75,7 +75,9 @@ while(rs.next()) {
 	
 %>
 	<tr>
-	<td><%=numTmp %></a></td><td><a href="view.jsp?num=<%=numTmp%>"><%=titleTmp %></td><td><%=writerTmp %></td>
+	<td><%=numTmp %></a></td>
+	<td><a href="view.jsp?num=<%=numTmp%>"><%=titleTmp %></td>
+	<td><%=writerTmp %></td>
 	<td><%=regtimeTmp %></td><td><%=hitsTmp %></td>
 	</tr>
 <%
