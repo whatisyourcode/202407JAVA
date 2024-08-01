@@ -1,6 +1,9 @@
-package board;
+package drive;
 
 import java.util.List;
+
+import board.BoardDAO;
+import board.BoardDTO;
 
 public class Ex1 {
 

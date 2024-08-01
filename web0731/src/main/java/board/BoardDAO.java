@@ -20,6 +20,8 @@ public class BoardDAO {
 	private String BOARD_INSERT = "insert into board(title, writer, content, regtime, hits) values(?,?,?,now(),0)";
 	private String BOARD_UPDATE = "update board set writer = ?,title = ?, content= ?, regtime = now() where num = ?"; 
 	private String BOARD_DELETE = "delete from board where num = ?";
+	private String BOARD_INCREASE = "update board set hits = hits + 1 where num = ?";
+	
 	// 게시판 등록
 	public void insertBoard(BoardDTO dto) {
 		conn = JDBCUtil.getConnection();
@@ -119,4 +121,19 @@ public class BoardDAO {
 		}
 	}
 	
+	public void increaseHits(int num) {
+			conn = JDBCUtil.getConnection();
+			try {
+				stmt = conn.prepareStatement(BOARD_INCREASE);
+				stmt.setInt(1,num);
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				JDBCUtil.close(stmt, conn);
+			}
+	
+		
+	}
 }

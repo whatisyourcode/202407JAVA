@@ -1,4 +1,4 @@
-package board;
+package drive;
 import board.BoardDAO;
 import board.BoardDTO;
 
