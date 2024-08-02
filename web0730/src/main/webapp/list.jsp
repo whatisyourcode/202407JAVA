@@ -65,7 +65,7 @@ conn = DriverManager.getConnection(URL, "root", "mysql");
 sqlTmp = "select * from board";
 pstmt = conn.prepareStatement(sqlTmp);
 ResultSet rs = pstmt.executeQuery();
-
+ 
 while(rs.next()) {
 	numTmp = rs.getString("num");
 	titleTmp = rs.getString("title");
