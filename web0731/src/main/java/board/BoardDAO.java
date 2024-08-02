@@ -136,4 +136,8 @@ public class BoardDAO {
 	
 		
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 637b703adb40baefb55c98f682758336f4112676
