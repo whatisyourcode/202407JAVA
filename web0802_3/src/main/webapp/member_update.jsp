@@ -1,30 +1,21 @@
+<%@page import="login.LoginDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 
 <%
     request.setCharacterEncoding("utf-8");
+	String id = request.getParameter("id");	
+	String pw = request.getParameter("pw");
+	String name = request.getParameter("name");
+	
 
-    Class.forName("org.mariadb.jdbc.Driver");
-    try ( 
-        Connection conn = DriverManager.getConnection(
-                "jdbc:mariadb://localhost:3306/jspdb", "jsp", "1234");
-        Statement stmt = conn.createStatement();
-    ) {
-        // 회원 정보 양식에 입력된 값을 DB에 저장
-        stmt.executeUpdate(String.format(
-                "update member set pw='%s', name='%s' where id='%s'",
-                request.getParameter("pw"  ),
-                request.getParameter("name"),
-                request.getParameter("id"  )));
-        
-        // 사용자 이름을 담은 세션 속성도 업데이트
-        // 아이디는 바뀌지 않지만, 사용자 이름은 바뀔 수 있기 때문임
-        session.setAttribute("userName", request.getParameter("name"));
-        
-    } catch(Exception e) {
-        e.printStackTrace();
-    } 
+	LoginDAO dao = new LoginDAO();
+	dao.updateID(id,pw,name);
+	
+	session.setAttribute("userName", name);
+	
+
 %>
 
 <!DOCTYPE html>

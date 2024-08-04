@@ -13,9 +13,50 @@ public class LoginDAO {
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	
+	private String USER_UPDATE1 = "Select * from member where id =?";
+	private String USER_UPDATE2 = "Update member set pw = ?, name = ? where id = ?";
 	private String USER_SELECT = "Select * from member where id = ? AND pw = ? ";
 	private String USER_INSERT = "Insert into member(id,pw,name) values(?,?,?)";
-	private String USER_CHECK = "Select * from memeber where id = ?";
+	private String USER_CHECK = "Select * from member where id = ?";
+
+	
+	public LoginDTO getID(String id) {
+		LoginDTO dto = null;
+		conn = JDBCUtil.getConnection();
+
+		try {
+			stmt = conn.prepareStatement(USER_UPDATE1);
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			rs.next();
+			dto = new LoginDTO(rs.getString("id"),rs.getString("pw"),rs.getString("name"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(rs, stmt, conn);
+		}
+			return dto;
+	}
+	
+	public void updateID(String id,String pw,String name) {
+		conn = JDBCUtil.getConnection();
+		
+		try {		
+			stmt = conn.prepareStatement(USER_UPDATE2);
+			stmt.setString(1, pw);
+			stmt.setString(2, name);
+			stmt.setString(3,id);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(stmt, conn);
+		}
+		
+	}
+	
 	public LoginDTO getID(String id,String pw) {
 		LoginDTO dto = null;
 		conn = JDBCUtil.getConnection();
@@ -34,8 +75,9 @@ public class LoginDAO {
 			JDBCUtil.close(rs, stmt, conn);
 		}
 			return dto;
-
 	}
+	
+
 	
 	public boolean idCheck(String id) {
 		conn = JDBCUtil.getConnection();
@@ -54,6 +96,7 @@ public class LoginDAO {
 		return check;
 	}
 	
+	
 	public LoginDTO signUp(String id,String pw,String name) {
 		conn = JDBCUtil.getConnection();
 		LoginDTO dto = new LoginDTO(id,pw,name);
@@ -67,9 +110,11 @@ public class LoginDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs, stmt, conn);
+			JDBCUtil.close(stmt, conn);
 		}
 		return dto;
 	}
+	
+
 	
 }
