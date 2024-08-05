@@ -14,7 +14,6 @@
 	LoginDAO dao = new LoginDAO();
 
 	if(dao.idCheck(id)){
-		 	dao.signUp(id,pw,name);
             // 이미 있는 아이디이면 오류 표시
 %>
             <script>
