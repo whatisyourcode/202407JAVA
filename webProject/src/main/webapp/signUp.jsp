@@ -9,9 +9,9 @@
 	String tel = request.getParameter("tel");
 	String gender = request.getParameter("gender");
 	String address = request.getParameter("address");
-	UserDAO dao = new UserDAO();
 	UserDTO dto = new UserDTO(0,name,password,tel,gender,address);
-	System.out.println(dto);
+	UserDAO dao = new UserDAO();
+	
 	if(dao.userCheck(name)){
         // 이미 있는 아이디이면 오류 표시
 %>

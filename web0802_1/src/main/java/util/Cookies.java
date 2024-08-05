@@ -21,10 +21,12 @@ public class Cookies {
 			}
 		}
 	}
+	
 	// 쿠키 반환
 	public Cookie getCookie(String name) {
 		return cookieMap.get(name);
 	}
+	
 	// 쿠키 값 반환
 	public String getValue(String name) throws IOException {
 		Cookie cookie = cookieMap.get(name);

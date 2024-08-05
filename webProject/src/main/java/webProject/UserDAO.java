@@ -7,8 +7,6 @@ import java.sql.SQLException;
 
 import util.JDBCUtil;
 
-
-
 public class UserDAO {
 	// JDBC 관련 변수 
 		private Connection conn = null;
@@ -39,16 +37,15 @@ public class UserDAO {
 			}
 		}
 		
-		public void userSet(int id, String password,String tel,String address, String gender) {
-			UserDTO dto = null;
+		public void userSet(UserDTO dto) {
 			conn = JDBCUtil.getConnection();
 			try {
 				stmt = conn.prepareStatement(USER_UPDATE);
-				stmt.setString(1, password);
-				stmt.setString(2, tel);
-				stmt.setString(3, address);
-				stmt.setString(4, gender);
-				stmt.setInt(5, id);
+				stmt.setString(1, dto.getPassword());
+				stmt.setString(2, dto.getTel());
+				stmt.setString(3, dto.getAddress());
+				stmt.setString(4, dto.getGender());
+				stmt.setInt(5, dto.getId());
 				stmt.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

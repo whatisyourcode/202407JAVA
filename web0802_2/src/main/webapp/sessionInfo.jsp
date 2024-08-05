@@ -25,5 +25,7 @@
 	time.setTime(session.getLastAccessedTime());
 %>
 최근접근시간: <%= formatter.format(time) %>
+
+
 </body>
 </html>

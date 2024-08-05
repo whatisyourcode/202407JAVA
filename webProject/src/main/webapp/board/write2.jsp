@@ -15,9 +15,82 @@ BoardDTO dto = dao.getOne(Integer.parseInt(num));
 <head>
     <meta charset="UTF-8">
     <style>
-        table { width:680px; text-align:center; }
-        th    { width:100px; background-color:cyan; }
-        input[type=text], textarea { width:100%; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 700px;
+            max-width: 100%;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #009688;
+            color: #fff;
+        }
+
+        input[type=text], textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type=submit], input[type=button] {
+            background-color: #009688;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        input[type=submit]:hover, input[type=button]:hover {
+            background-color: #00796b;
+        }
+
+        input[type=button] {
+            background-color: #f44336;
+        }
+
+        input[type=button]:hover {
+            background-color: #c62828;
+        }
     </style>
 </head>
 <body>
@@ -26,7 +99,7 @@ BoardDTO dto = dao.getOne(Integer.parseInt(num));
     <table>
         <tr>
             <th>제목</th>
-            <td><input type="text" name="title"  maxlength="80"
+            <td><input type="text" name="title" maxlength="80"
                        value="<%=dto.getTitle() %>">
             </td>
         </tr>

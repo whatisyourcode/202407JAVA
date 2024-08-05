@@ -4,14 +4,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    
 <%
 String name = (String)session.getAttribute("name");
 String num = request.getParameter("num");
 BoardDAO dao = new BoardDAO();
 dao.increaseHits(Integer.parseInt(num));
 BoardDTO dto = dao.getOne(Integer.parseInt(num));
-System.out.println(dto);
-System.out.println(name);
 %>
 
 <!DOCTYPE html>
@@ -19,9 +18,54 @@ System.out.println(name);
 <head>
     <meta charset="UTF-8">
     <style>
-        table { width:680px; text-align:center; }
-        th    { width:100px; background-color:cyan; }
-        td    { text-align:left; border:1px solid gray; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #009688;
+            color: white;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -50,17 +94,15 @@ System.out.println(name);
 </table>
 
 <br>
-<input type="button" value="목록보기" onclick="location.href='list.jsp'">
+<a href="list.jsp" class="btn">목록보기</a>
 <% 
-if(name.equals(dto.getWriter())){
-
+if(name != null && name.equals(dto.getWriter())) {
 %>
-<input type="button" value="수정"
-       onclick="location.href='write2.jsp?num=<%=dto.getNum()%>'">
-<input type="button" value="삭제"
-       onclick="location.href='delete.jsp?num=<%=dto.getNum()%>'">
+<a href="write2.jsp?num=<%=dto.getNum()%>" class="btn">수정</a>
+<a href="delete.jsp?num=<%=dto.getNum()%>" class="btn btn-danger">삭제</a>
 <%
-} 
+}
 %>
+
 </body>
 </html>
