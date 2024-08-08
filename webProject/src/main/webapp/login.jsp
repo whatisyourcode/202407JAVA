@@ -10,7 +10,7 @@
 	UserDAO dao = new UserDAO();
 	UserDTO dto = dao.userLogin(name, password);
 	
-	if(dto != null){
+	if(dto != null){																				
 		session.setAttribute("name", name);
 		response.sendRedirect("index.jsp");
 		return;
