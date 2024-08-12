@@ -1,5 +1,5 @@
-<%@page import="board.BoardDAO"%>
-<%@page import="board.BoardDTO"%>
+<%@page import="shop.BoardDAO"%>
+<%@page import="shop.BoardDTO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>

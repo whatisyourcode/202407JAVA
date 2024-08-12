@@ -1,4 +1,4 @@
-<%@page import="board.BoardDAO"%>
+<%@page import="shop.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
     
