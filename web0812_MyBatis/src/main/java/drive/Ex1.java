@@ -7,9 +7,9 @@ public class Ex1 {
 
 	public static void main(String[] args) {
 		ProductDAO dao = new ProductDAO();
-		Product product = new Product(37,"삼겹살","두툼한 삼겹살",15000,8); // 업데이트 할 내용
+		Product product = new Product(1, "샤프1", "최고의 샤프1", 12000, 5);  // 업데이트 할 내용
 		dao.updateProduct(product);
-		System.out.println("수정완료");
+		System.out.println("수정 완료");
 
 	}
 

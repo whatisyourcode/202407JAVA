@@ -19,12 +19,12 @@
 			<textarea id="description" name="description" required>${product.description}</textarea>
 		</div>
 		<div>
-			<label for="price">가격:</label> <input type="text" id="price"
+			<label for="price">가격:</label><input type="text" id="price"
 				name="price" value="${product.price}" required>
 		</div>
 		<div>
 			<label for="stock">수량:</label> <input type="text" id="stock"
-				name="stock" value="0" value="${product.stock}" required>
+				name="stock" value="${product.stock}" required>
 		</div>
 		<div>
 			<input type="submit" value="Update Product">

@@ -1,5 +1,5 @@
-<%@page import="shop.BoardDTO"%>
-<%@page import="shop.BoardDAO2"%>
+<%@page import="board.BoardDTO"%>
+<%@page import="board.BoardDAO2"%>
 <%@page import="dept.DeptDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="dept.DeptDAO"%>

@@ -6,8 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
+@Getter
 @Setter
-@Getter 
 @ToString
 public class CartProducts {
 	private int id;

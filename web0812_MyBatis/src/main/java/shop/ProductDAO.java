@@ -1,5 +1,6 @@
 package shop;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,16 +31,30 @@ public class ProductDAO {
 	}
 
 	public Product getProductById(int id) {
-		return session.selectOne("ProductMapper.selectProductById",id);	
+		return session.selectOne("ProductMapper.selectProductById", id);
 	}
-
-
 
 	public void updateProduct(Product product) {
 		session.update("ProductMapper.updateProduct", product);
 	}
 
-	public void deleteProduct(int id) {
-		session.delete("ProductMapper.deleteProduct",id);
+	public boolean deleteProduct(int id) {
+		try {
+			session.update("ProductMapper.deleteProduct", id);
+		} catch(Exception e) {
+			System.out.println("여기!!!");
+			//e.printStackTrace();
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public void decreaseStock(int id) {
+		session.update("ProductMapper.decreaseStock", id);
+	}
+	
+	public int countProducts(int id) {
+		return session.selectOne("ProductMapper.countProducts", id);
 	}
 }

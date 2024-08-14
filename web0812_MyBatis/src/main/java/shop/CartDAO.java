@@ -25,20 +25,20 @@ public class CartDAO {
 		return session.selectList("CartMapper.viewCart");
 	}
 
-	public int countProduct(int id) {
-		return session.selectOne("CartMapper.countProducts",id);
+	public int countOrder(int id) {
+		return session.selectOne("CartMapper.countOrder", id);
 	}
-	
 	public void addToCart(int id) {
-		if(countProduct(id) == 0) {
-			session.insert("CartMapper.addToCart",id);
-		}else {
-			session.update("CartMapper.updateCart",id);
+		if (countOrder(id) == 0) {
+			session.insert("CartMapper.addToCart", id);
+		} else {
+			session.update("CartMapper.updateCart", id);
 		}
+		
 	}
 
 	public Product getProductById(int id) {
-		return session.selectOne("ProductMapper.selectProductById",id);	
+		return session.selectOne("ProductMapper.selectProductById", id);
 	}
 
 	public void updateProduct(Product product) {
@@ -46,6 +46,6 @@ public class CartDAO {
 	}
 
 //	public void deleteProduct(int id) {
-//		
+
 //	}
 }
