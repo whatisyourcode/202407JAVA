@@ -1,18 +1,15 @@
 package com.board.service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.board.db.*;
 
 public class BoardService {
 
     private static final int listSize = 3;
-    private static final int paginationSize = 3;
+    private static final int paginationSize = 2;
 
-    public List<BoardDto> getMsgList(int pageNo) {
+    public ArrayList<BoardDto> getMsgList(int pageNo) {
        return new BoardDao().selectList((pageNo - 1) * listSize, listSize);
     }
 
@@ -23,8 +20,7 @@ public class BoardService {
         int numRecords = new BoardDao().getNumRecords();
         int numPages = (int)Math.ceil((double)numRecords / listSize);
 
-        int firstLink = ((pageNo - 1) / paginationSize)
-                        * paginationSize + 1;
+        int firstLink = ((pageNo - 1) / paginationSize) * paginationSize + 1;
         int lastLink = firstLink + paginationSize - 1;
         if (lastLink > numPages) {
             lastLink = numPages;
@@ -75,9 +71,6 @@ public class BoardService {
            throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
         }
 
-        LocalDate now = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = now.format(formatter);
         BoardDto dto = new BoardDto();
         dto.setWriter (writer );
         dto.setTitle  (title  );

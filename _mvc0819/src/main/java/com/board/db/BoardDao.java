@@ -1,6 +1,7 @@
 package com.board.db;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,30 +22,44 @@ public class BoardDao {
 		session = sqlsession_f.openSession(true);
 	}
 	
-	public List<BoardDto> selectList(int a,int b) {
-		// session을 통해 쿼리를 실행하고 값을 받아온다.
-		return session.selectList("BoardMapper.selectAllProducts");
-	}
-
-	public void insertOne(BoardDto dto) {
-		session.insert("ProductMapper.insertProduct", dto);
-	}
-	
 	public int getNumRecords() {
 		return session.selectOne("BoardMapper.getNumRecords");
 	}
-
-	public BoardDto selectOne(int id, boolean bol) {
-		return session.selectOne("ProductMapper.selectProductById", id);
+	
+	public List<BoardDto> selectList(int start, int listsize) {
+		// session을 통해 쿼리를 실행하고 값을 받아온다.
+		HashMap<String,Integer> map = new HashMap<>();
+		map.put("start", start);
+		map.put("listsize", listsize);
+		return session.selectList("BoardMapper.selectList",map);
 	}
 
-	public void updateOne(BoardDto product) {
-		session.update("ProductMapper.updateProduct", product);
+	public void insertOne(BoardDto dto) {
+		session.insert("BoardMapper.insertBoard", dto);
+	}
+	
+
+
+	public BoardDto selectOne(int num, boolean hitsIncreased) {
+		if(hitsIncreased) {
+			updateHits(num);
+		}
+		
+		return session.selectOne("BoardMapper.selectOne", num);
 	}
 
-	public boolean deleteOne(int id) {
+	
+	private void updateHits(int num) {
+		session.update("BoardMapper.updateHits", num);
+	}
+	
+	public void updateOne(BoardDto dto) {
+		session.update("BoardMapper.updateOne", dto);
+	}
+
+	public boolean deleteOne(int num) {
 		try {
-			session.update("ProductMapper.deleteProduct", id);
+			session.delete("BoardMapper.deleteOne", num);
 		} catch(Exception e) {
 			System.out.println("여기!!!");
 			//e.printStackTrace();

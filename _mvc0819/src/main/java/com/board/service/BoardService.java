@@ -1,11 +1,13 @@
 package com.board.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.board.db.*;
+import com.board.db.BoardDao;
+import com.board.db.BoardDto;
+import com.board.db.Pagination;
 
 public class BoardService {
 
@@ -75,14 +77,15 @@ public class BoardService {
            throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
         }
 
-        LocalDate now = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
+        
         BoardDto dto = new BoardDto();
         dto.setWriter (writer );
         dto.setTitle  (title  );
         dto.setContent(content);
-
+        dto.setRegtime(formattedDateTime);
         new BoardDao().insertOne(dto);
     }
 
@@ -97,12 +100,17 @@ public class BoardService {
            throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
         }
 
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
+        
         BoardDto dto = new BoardDto();
         dto.setNum    (num    );
         dto.setWriter (writer );
         dto.setTitle  (title  );
         dto.setContent(content);
-
+        dto.setRegtime(formattedDateTime);
+        
         new BoardDao().updateOne(dto);
     }
 
