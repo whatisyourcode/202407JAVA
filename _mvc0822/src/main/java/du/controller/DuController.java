@@ -57,12 +57,12 @@ public class DuController extends HttpServlet {
         	}  else {
         		System.out.println("로그인 실패!");
         	}
-        	view = "main.jsp";
+        	view = "redirect:main.jsp";
         } else if(com.equals("/logout")) {
         	HttpSession session = request.getSession(); // 세션 객체 가져오기
         	session.removeAttribute("customInfo");	// 세션 객체 제거
         	session.setAttribute("userLoggedIn", false); 
-        	view = "main.jsp";
+        	view = "redirect:main.jsp";
         } else if(com.equals("/list")) {
         	String tmp = request.getParameter("page");
         	int pageNo = (tmp != null && tmp.length() > 0 ) 
@@ -145,7 +145,7 @@ public class DuController extends HttpServlet {
         	MemberDto dto = new MemberDto(0,name,email,password,"");
         	new MemberService().registerMember(dto);
         		
-        	view = "main.jsp";
+        	view = "redirect:main.jsp";
         	
         } else if(com.equals("/memberList")) {
         	String tmp = request.getParameter("page");
@@ -160,15 +160,16 @@ public class DuController extends HttpServlet {
 
         } else if(com.equals("/memberView")) {
             int num = Integer.parseInt(request.getParameter("num"));
-
             request.setAttribute("mem", new MemberService().getMsg(num));
             view = "memberView.jsp";
+            
         } else if(com.equals("/memberWrite")) {
         	view = "memberWrite.jsp";
         } else if(com.equals("/memberDelete")) {
         	   int num = Integer.parseInt(request.getParameter("num"));
         	   new MemberService().deleteMember(num);
                view = "redirect:memberList";
+               
         } else if(com.equals("/adminSignUp")) {
         	request.setCharacterEncoding("utf-8");
         	String email = request.getParameter("email");
