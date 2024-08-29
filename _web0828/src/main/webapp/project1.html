@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+    <input type="'text" name="id" placeholder="ID">
+    <input type="'text" name="title" placeholder="Title">
+    <input type="'text" name="author" placeholder="Author">
+    <button onclick="createPost()">Create</button>
+    <button onclick="readPost()">Read</button>
+    <button onclick="updatePost()">Update</button>
+    <button onclick="deletePost()">Delete</button>  
+    </div>
+        <ul class="print-data"></ul>
+    <script>
+        const apiUrl = 'http://localhost:3000/posts';
+        function readPost() {   
+            fetch(apiUrl)           // apiUrl로 Read 요청시
+            .then(response =>response.json()) // get방식으로 reqeust 하는 기능으로  json 파일로 변환
+            .then(data => {
+                const printData = document.querySelector('.print-data');
+                printData.innerHTML = ""; // printData 초기화
+                data.forEach(post => {  // json 데이터를 갖고 있는 data를 foreach로 printData에 대입
+                    printData.innerHTML += `<li>id: ${post.id} <br> title: ${post.title}
+                    <br>author: ${post.author}</li>`;
+                }); 
+            })
+            .catch(error => console.error('Error:',error));
+        }
+
+        function createPost() {
+            const inputId = document.querySelector('input[name=id]').value;
+            const inputTitle = document.querySelector('input[name=title]').value;
+            const inputAuthor = document.querySelector('input[name=author]').value;
+
+            const postParams = {
+                id: inputId,
+                title: inputTitle,
+                author: inputAuthor
+            };
+
+            fetch(apiUrl, {             // apiUrl로 Create 요청시
+                method: 'POST',     // POST 방식으로 전송
+                hearders: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(postParams) // 객체를 전달받지 못하기 떄문에 JSON 형식의 String으로 변환
+            })
+            .then(response => response.json())  
+            .then(data=>{
+                console.log('Post created:',data);
+                readPost();
+            })
+            .catch(error=>console.error('Error',error));
+
+        } 
+
+        function updatePost() {
+            const inputId = document.querySelector('input[name=id]').value;
+            const inputTitle = document.querySelector('input[name=title]').value;
+            const inputAuthor = document.querySelector('input[name=author]').value;
+
+            const postParams = {
+                id: inputId,
+                title: inputTitle,
+                author: inputAuthor
+            };
+
+            fetch(`${apiUrl}/${inputId}`,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postParams)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Post updated:',data);
+                readPost();
+            })
+            .catch(error => console.error('Error:',error));
+        }
+
+        function deletePost() {
+            const inputId = document.querySelector('input[name=id]').value;
+
+            fetch(`${apiUrl}/${inputId}`, { // http://localhost:3000/posts/(id 값) 형식으로 delete  요청
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data =>{
+                console.log('Post deleted',data);
+                readPost();
+            })
+            .catch(error => console.error('Error:',error));
+        }
+    </script>
+</body>
+</html>
