@@ -9,13 +9,6 @@ public class WritingRequest {
 	private String title;
 	private String content;
 	
-	public WritingRequest(String writerName, String password, String title, String content) {
-		super();
-		this.writerName = writerName;
-		this.password = password;
-		this.title = title;
-		this.content = content;
-	}
 	public String getWriterName() {
 		return writerName;
 	}
